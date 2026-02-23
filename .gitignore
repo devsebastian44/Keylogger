@@ -1,0 +1,53 @@
+# === PROJECT STRUCTURE (Public Portfolio Ready) ===
+!docs/
+!diagrams/
+!configs/
+!src/
+!tests/
+
+# === SENSITIVE/INTERNAL (Private Lab Only) ===
+# These are kept but ignored in public branches manually
+# or handled via special ignore rules
+payloads/
+bin/
+logs/
+src/core/engine.py
+
+# === CONFIGS SECURITY ===
+configs/*.env
+configs/*.json
+!configs/requirements.txt
+!configs/settings.yaml
+
+# === DATA & LOGS ===
+*.log
+data/
+
+# === PYTHON ===
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+# === IDE & OS ===
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# === DUAL-REPO STRATEGY ===
+# GitLab (Private): Contains everything including engine.py
+# GitHub (Public): Needs a clean branch without engine.py or tests
