@@ -32,8 +32,8 @@ El proyecto sigue una estructura modular y escalable pensada para entornos DevSe
 
 Este repositorio utiliza una estrategia de **Diferenciación de Entornos**:
 
-- **GitHub (Público):** Escaparate para portafolio. Contiene la estructura, documentación, diagramas y **pseudocódigo educativo** para evitar la distribución de malware funcional.
-- **GitLab (Privado):** Laboratorio de desarrollo. Contiene la implementación completa, payloads funcionales, tests automatizados y el pipeline de CI/CD con análisis estático de seguridad (SAST).
+- **GitHub (Portafolio):** Escaparate profesional. Contiene estructura, documentación, diagramas y pseudocódigo educativo. Demuestra mejores prácticas DevSecOps sin funcionalidades críticas.
+- **GitLab (Laboratorio Público):** Laboratorio educativo completo. Contiene implementación funcional, payloads activos, tests automatizados y pipeline CI/CD con análisis SAST. Accesible públicamente para investigación.
 
 ---
 
