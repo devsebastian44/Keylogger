@@ -1,259 +1,180 @@
-# Sentinel Framework
+# 🐚 Reverse-Shell
 
-![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat&logo=python&logoColor=white)
-![Bandit](https://img.shields.io/badge/SAST-Bandit-FF6F00?style=flat&logo=python&logoColor=white)
-![Pytest](https://img.shields.io/badge/Testing-Pytest-0A9EDC?style=flat&logo=pytest&logoColor=white)
-![pynput](https://img.shields.io/badge/Input%20Capture-pynput-8A2BE2?style=flat&logo=python&logoColor=white)
-![smtplib](https://img.shields.io/badge/Exfiltration-smtplib-D44638?style=flat&logo=gmail&logoColor=white)
-![License](https://img.shields.io/badge/License-GPL--3.0-red?style=flat)
-
----
-
-> ⚠️ **AVISO ÉTICO Y LEGAL:** Este framework ha sido desarrollado exclusivamente con fines **educativos, de investigación en ciberseguridad y laboratorio controlado**. El uso de esta herramienta contra sistemas o personas sin consentimiento explícito previo constituye un **delito** en la mayoría de jurisdicciones. El autor no asume ninguna responsabilidad por el uso indebido de este código. Úsalo únicamente en entornos donde tengas autorización expresa.
+![Python](https://img.shields.io/badge/Python-3.9+-3776AB?style=flat&logo=python&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-Automation-5391FE?style=flat&logo=powershell&logoColor=white)
+![GitLab CI](https://img.shields.io/badge/GitLab_CI-DevSecOps-FC6D26?style=flat&logo=gitlab&logoColor=white)
+![Bandit](https://img.shields.io/badge/SAST-Bandit-critical?style=flat&logo=python&logoColor=white)
+![License](https://img.shields.io/badge/License-GPL--3.0-red?style=flat&logo=gnu&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux-0078D6?style=flat&logo=windows&logoColor=white)
 
 ---
 
 ## 🧠 Overview
 
-**Sentinel Framework** es un framework de ciberseguridad educativa escrito en **Python 3** que implementa los principios técnicos de un keylogger, tanto en modalidad local como remota. A partir de la estructura del proyecto (`src/`, `docs/`, `diagrams/`) y los tópicos detectados (`pynput`, `smtplib`, `social-engineering`), este proyecto modela el ciclo completo de una herramienta de captura de pulsaciones de teclado: captura de eventos de entrada, almacenamiento de logs y exfiltración de datos vía correo electrónico.
+Este proyecto implementa una **Reverse Shell multiplataforma** (Windows 10 y Linux) desarrollada en Python 3.9+, orientada a entornos de **laboratorio de ciberseguridad**, Red Teaming y análisis de seguridad ofensiva. La herramienta establece un canal de comunicación TCP inverso entre una máquina víctima y un atacante controlado, permitiendo la ejecución remota de comandos desde el host oyente.
 
-El framework está orientado a **analistas de seguridad, estudiantes de ciberseguridad y equipos de red team** que necesiten comprender el comportamiento técnico de keyloggers en entornos de laboratorio controlados. Su arquitectura modular incluye tres modos de ejecución que permiten estudiar el comportamiento sin activar capturas reales (`dry-run`), simular flujos de datos (`test`) o ejecutar el módulo completo en entornos autorizados (`active`).
+El proyecto se rige por una **estrategia DevSecOps dual**: el código operativo completo reside en un laboratorio GitLab, mientras que GitHub actúa como portafolio arquitectónico sanitizado. La transición entre entornos está gobernada por un script PowerShell automatizado (`publish_public.ps1`) que elimina artefactos sensibles antes de cualquier publicación pública.
 
-Adicionalmente, el proyecto integra un pipeline **DevSecOps** con análisis estático de seguridad (SAST) mediante `bandit` y pruebas automatizadas con `pytest`, lo que lo posiciona también como un caso de estudio de desarrollo seguro aplicado a herramientas de seguridad ofensiva.
+> ⚠️ **Uso Responsable:** Este proyecto es exclusivamente para fines educativos, investigación y laboratorios controlados. Su ejecución en sistemas sin autorización explícita del propietario es ilegal.
 
 ---
 
 ## ⚙️ Features
 
-- **Captura de eventos de teclado (local)** — Mediante `pynput`, el framework intercepta y registra en tiempo real todas las pulsaciones del teclado del sistema, incluyendo teclas especiales (Enter, Shift, Ctrl, etc.).
-- **Exfiltración remota vía email** — Usando `smtplib`, los logs capturados pueden ser enviados automáticamente a una dirección de correo definida en la configuración, simulando la exfiltración de datos en escenarios de red team.
-- **Tres modos de ejecución CLI** — Control total por argumentos de línea de comandos: modo educativo sin captura real (`dry-run`), modo de simulación de flujos (`test`) y modo de laboratorio activo (`active`) con salida a archivo de log.
-- **Salida de logs configurable** — El argumento `--output` permite definir la ruta del archivo donde se almacenan las sesiones capturadas (solo disponible en modo `active`).
-- **Diagramas de flujo de datos** — Carpeta `diagrams/` con visualizaciones de la arquitectura interna y el flujo de datos del framework.
-- **Documentación técnica y ética** — Carpeta `docs/` con guía de ética y legalidad, documentación de arquitectura y políticas de uso responsable.
-- **Pipeline SAST integrado** — Análisis estático de seguridad con `bandit` y pruebas de integración con `pytest` en el pipeline de GitLab CI/CD.
-- **Arquitectura DevSecOps** — Separación explícita entre entorno de portafolio público (GitHub) y laboratorio funcional completo (GitLab).
+- **Reverse Shell TCP** implementada en Python mediante los módulos `socket` y `subprocess`
+- **Soporte multiplataforma**: payloads para Windows 10 (Batch/PowerShell) y Linux (Bash)
+- **Pipeline CI/CD** con etapas de linting (`flake8`, `shellcheck`), tests (`pytest`) y SAST (`bandit`)
+- **Script de publicación sanitizada** (`publish_public.ps1`) con generación de ramas efímeras
+- **Suite de pruebas automatizadas** en `tests/` con pytest
+- **Documentación técnica** en `docs/` con pseudocódigo y manuales de arquitectura
+- **Diagramas** de flujo y topología de red en `diagrams/`
+- **Control estricto de secretos** mediante `.gitignore` configurado
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Componente | Tecnología |
-|---|---|
-| Lenguaje principal | Python 3.9+ |
-| Captura de teclado | pynput |
-| Exfiltración de datos | smtplib (SMTP) |
-| Testing unitario | pytest |
-| Análisis estático SAST | bandit |
-| Linting de código | flake8 / pylint (inferido) |
-| CI/CD Pipeline | GitLab CI (`.gitlab-ci.yml`) |
-| Control de versiones | Git (GitHub + GitLab) |
+| Capa | Tecnología | Propósito |
+|---|---|---|
+| Lenguaje principal | Python 3.9+ | Payload y lógica de la reverse shell |
+| Scripting Windows | PowerShell (.ps1) | Automatización y publicación sanitizada |
+| Scripting Windows (payload) | Batch (.bat) | Ejecución en Windows 10 |
+| Scripting Linux | Bash (.sh) | Configuración del entorno y listener |
+| Listener de red | Netcat (`nc`) | Receptor de conexiones TCP inversas |
+| SAST | Bandit | Detección de vulnerabilidades en Python |
+| Linting Python | Flake8 | Verificación de estilo |
+| Linting Shell | Shellcheck | Análisis de scripts Bash |
+| Testing | Pytest | Suite de pruebas funcionales |
+| CI/CD | GitLab CI | Pipeline de integración continua |
 
 ---
 
 ## 📦 Installation
+````bash
+# Clonar desde GitLab (repositorio completo)
+git clone https://gitlab.com/group-cybersecurity-lab/Reverse-Shell.git
+cd Reverse-Shell
 
-### Requisitos previos
+# Configurar el entorno listener (Linux)
+sudo bash scripts/config.sh
 
-- Python 3.9 o superior
-- pip (gestor de paquetes de Python)
-- Entorno virtual recomendado (`venv` o `conda`)
-- Sistema operativo: Linux, Windows o macOS
-- ⚠️ Ejecutar **únicamente** en sistemas propios o con autorización explícita
-
-### Instalación desde GitLab (fuente completa)
-
-```bash
-# 1. Clonar el repositorio de laboratorio completo
-git clone https://gitlab.com/group-cybersecurity-lab/Keylogger.git
-cd Keylogger
-
-# 2. Crear y activar entorno virtual
-python3 -m venv venv
-source venv/bin/activate        # Linux/macOS
-venv\Scripts\activate           # Windows
-
-# 3. Instalar dependencias
-pip install -r configs/requirements.txt
-```
-
-### Instalación desde GitHub (versión pública)
-
-```bash
-# 1. Clonar el repositorio público
-git clone https://github.com/devsebastian44/Keylogger.git
-cd Keylogger
-
-# 2. Crear entorno virtual e instalar dependencias
-python3 -m venv venv
-source venv/bin/activate
-pip install pynput
-```
+# Instalar herramientas de análisis
+pip install flake8 bandit pytest
+apt install shellcheck
+````
 
 ---
 
 ## ▶️ Usage
+````bash
+# 1. Iniciar listener en máquina atacante
+nc -lvnp 4444
 
-El framework se controla íntegramente mediante argumentos desde la terminal a través del punto de entrada `src/main.py`:
+# 2a. Ejecutar payload Python en la víctima
+python3 src/reverse_shell.py
 
-```bash
-# Modo Educativo — Seguro por defecto (sin captura real, solo simulación de flujo)
-python src/main.py --mode dry-run
+# 2b. O usar el payload Batch en Windows 10
+shell.bat
 
-# Modo Simulación — Valida el comportamiento de los módulos sin escribir logs reales
-python src/main.py --mode test
+# Ejecutar análisis de seguridad local
+flake8 src/ && bandit -r src/ && shellcheck scripts/*.sh && pytest tests/ -v
 
-# Modo Laboratorio — Captura activa (solo en entornos autorizados)
-python src/main.py --mode active --output logs/sesion_001.log
-```
-
-### Referencia de argumentos CLI
-
-| Argumento | Valores | Descripción |
-|---|---|---|
-| `--mode` | `dry-run` / `test` / `active` | Define el modo de ejecución del framework |
-| `--output` | ruta de archivo | Ruta de salida para el archivo de log (solo en modo `active`) |
-
-### Ejecutar tests y análisis de seguridad
-
-```bash
-# Ejecutar suite de pruebas
-pytest tests/ -v
-
-# Análisis estático de seguridad (SAST)
-bandit -r src/ -ll
-
-# Linting de código
-flake8 src/
-```
+# Publicar versión sanitizada a GitHub (PowerShell)
+.\scripts\publish_public.ps1
+````
 
 ---
 
 ## 📁 Project Structure
-
-```
-Keylogger/
-│
-├── src/
-│   └── main.py                    # Punto de entrada principal del framework:
-│                                  # parseo de argumentos CLI (--mode, --output),
-│                                  # orquestación de módulos de captura,
-│                                  # logging y exfiltración
-│
-├── docs/
-│   ├── ethics.md                  # Guía de ética, legalidad y uso responsable
-│   └── architecture.md            # Documentación técnica de la arquitectura
-│                                  # del framework y sus componentes
-│
-├── diagrams/
-│   └── data_flow.md               # Diagramas del flujo de datos interno:
-│                                  # captura → buffer → log → exfiltración
-│
-├── .gitignore                     # Exclusiones: logs reales, configs sensibles,
-│                                  # credenciales SMTP y artefactos de entorno
-│
-├── LICENSE                        # Licencia GPL-3.0
-└── README.md                      # Documentación pública del repositorio
-```
-
-> 📌 La versión completa en GitLab incluye adicionalmente: `configs/` (requirements y configuración), `tests/` (suite pytest), módulos internos del framework y el pipeline `.gitlab-ci.yml`.
+````
+Reverse-Shell/
+├── src/                   # Payloads operativos [solo GitLab]
+├── scripts/               # Automatización DevSecOps [solo GitLab]
+│   ├── publish_public.ps1 # Publicación sanitizada a GitHub
+│   └── config.sh          # Configuración del entorno listener
+├── configs/               # Plantillas de infraestructura [solo GitLab]
+├── tests/                 # Suite pytest [solo GitLab]
+├── docs/                  # Documentación técnica y pseudocódigo
+├── diagrams/              # Diagramas de arquitectura en Markdown
+├── .gitlab-ci.yml         # Pipeline CI/CD [solo GitLab]
+├── .gitignore
+├── LICENSE                # GPL-3.0
+└── README.md
+````
 
 ---
 
 ## 🔐 Security
 
-Este proyecto implementa técnicas propias de **malware educativo** y herramientas de red team. Las siguientes consideraciones son fundamentales para su uso responsable:
+- **Vector de ataque:** Conexión TCP inversa iniciada desde la víctima, eludiendo firewalls con reglas entrantes restrictivas
+- **Módulos de riesgo:** `socket` y `subprocess` — detectados y auditados por `bandit` en cada pipeline
+- **Detección AV/EDR:** Los payloads pueden ser detectados por soluciones modernas; uso en laboratorio aislado es mandatorio
+- **Pipeline SAST:** `bandit` analiza llamadas peligrosas (`subprocess.shell=True`, `exec`, `eval`) antes de cada merge
 
-### Implicaciones técnicas
-
-- **Captura de entrada de sistema** — `pynput` opera a nivel del sistema operativo interceptando eventos del kernel de entrada. En sistemas modernos (Windows, Linux con Wayland) pueden requerirse permisos elevados o configuraciones específicas de accesibilidad.
-- **Exfiltración SMTP** — El módulo de envío vía `smtplib` establece conexiones de red salientes hacia servidores de correo. En redes corporativas, este tráfico puede ser detectado por sistemas IDS/IPS y herramientas de DLP.
-- **Persistencia** — Los modos avanzados del framework en GitLab pueden incluir mecanismos de persistencia del proceso. Nunca activar en sistemas de producción.
-- **Detección antivirus** — Las herramientas de captura de teclado son categorizadas como PUA (Potentially Unwanted Application) o directamente como malware por la mayoría de soluciones EDR/AV. Se recomienda ejecutar en entornos aislados (VM, sandbox).
-
-### Pipeline de seguridad integrada
-
-- `bandit` realiza análisis SAST sobre el código fuente detectando patrones de riesgo (uso de `subprocess`, hardcoded credentials, etc.)
-- `.gitignore` excluye explícitamente logs, credenciales SMTP y archivos de configuración sensibles para evitar filtraciones accidentales.
-
-### Marco legal
-
-| Contexto | Uso permitido |
-|---|---|
-| ✅ Máquina propia o VM de laboratorio | Sí |
-| ✅ Red team con contrato y autorización escrita | Sí |
-| ✅ Entorno académico controlado | Sí |
-| ❌ Sistemas de terceros sin consentimiento | **Ilegal** |
-| ❌ Redes corporativas sin autorización | **Ilegal** |
-| ❌ Dispositivos personales de otras personas | **Ilegal** |
-
-> ⚠️ El uso de keyloggers sin consentimiento puede constituir un delito según legislaciones como el **CFAA (EE.UU.)**, la **Directiva NIS2 (Europa)**, la **Ley Orgánica de Protección de Datos (España)** y normativas equivalentes en América Latina. Consulta la legislación vigente en tu jurisdicción antes de cualquier uso.
+**Buenas prácticas:**
+- Ejecutar únicamente en VMs aisladas (VirtualBox, VMware, redes host-only)
+- Usar rangos de red privados (`192.168.x.x`, `10.0.x.x`)
+- Nunca ejecutar en sistemas de terceros sin autorización escrita
+- Destruir el entorno tras cada sesión de pruebas
 
 ---
 
 ## 🌐 Repository Architecture
-
-Este proyecto sigue una arquitectura distribuida con separación de entornos:
-
-- **GitHub** — Portafolio técnico público: estructura del proyecto, documentación, diagramas de flujo y pseudocódigo educativo sanitizado
-- **GitLab** — Laboratorio de ciberseguridad: implementación funcional completa, módulos activos, pipeline CI/CD con SAST y suite de pruebas
-
-### Pipeline DevSecOps (GitLab → GitHub)
-
-```
-[GitLab — Laboratorio Completo]
-       │
-       ▼
-[Pipeline CI/CD]
-  · Linting (flake8/pylint)
-  · SAST con bandit
-  · Unit Testing con pytest
-       │
-       ▼
-[Sanitización — Filtrado de payloads activos,
- credenciales, configs y módulos críticos]
-       │
-       ▼
-[GitHub — Portafolio Público Sanitizado]
-```
+````
+GitLab (Fuente de la Verdad)          GitHub (Portafolio Público)
+┌─────────────────────────┐           ┌──────────────────────────┐
+│ src/     → Payloads     │           │ docs/    → Documentación │
+│ scripts/ → Automatiz.   │──push──►  │ diagrams/→ Arquitectura  │
+│ tests/   → pytest       │ sanitiz.  │ LICENSE  → GPL-3.0       │
+│ .gitlab-ci.yml → CI/CD  │           │ README.md                │
+└─────────────────────────┘           └──────────────────────────┘
+````
 
 ### 🔗 Full Source Code
 
-👉 Código completo disponible en GitLab: [https://gitlab.com/group-cybersecurity-lab/Keylogger](https://gitlab.com/group-cybersecurity-lab/Keylogger)
+👉 Código operativo completo en GitLab: [https://gitlab.com/group-cybersecurity-lab/Reverse-Shell](https://gitlab.com/group-cybersecurity-lab/Reverse-Shell)
 
 ---
 
 ## 🚀 Roadmap
 
-Posibles extensiones identificadas desde la arquitectura modular y los tópicos detectados:
-
-- [ ] **Cifrado de logs** — Implementar cifrado AES/Fernet sobre los archivos de salida para proteger los datos capturados en entornos de laboratorio.
-- [ ] **Soporte multi-plataforma documentado** — Ampliar la documentación de compatibilidad para Windows (hooks de bajo nivel con `win32api`) y macOS (permisos de accesibilidad).
-- [ ] **Captura de portapapeles** — Módulo adicional para captura del portapapeles del sistema (`pyperclip`) como vector complementario de investigación.
-- [ ] **Soporte Webhook** — Alternativa a SMTP para exfiltración a endpoints HTTP (Discord, Slack, servidor propio) en escenarios de red team.
-- [ ] **Modo de análisis forense** — Módulo de lectura y análisis estadístico de logs capturados para entrenamiento de detección de patrones.
-- [ ] **Docker sandbox** — Contenedor Docker preconfigurado para ejecutar el framework de forma aislada sin afectar el sistema anfitrión.
-- [ ] **Detección evasión AV** — Documentación técnica (sin código malicioso) sobre técnicas de detección usadas por EDR para identificar keyloggers educativos.
+- [ ] Cifrado TLS/SSL del canal TCP
+- [ ] Soporte multi-sesión con arquitectura multi-hilo
+- [ ] Ofuscación del payload (base64, XOR) para evasión AV
+- [ ] Persistencia automatizada en Windows (registro / tareas programadas)
+- [ ] Panel CLI interactivo para gestión de sesiones
+- [ ] Dockerización del entorno de laboratorio
+- [ ] Cobertura pytest ≥ 80% con pruebas de integración de red
+- [ ] Extensión de payloads para macOS (Darwin)
 
 ---
 
 ## 📄 License
 
-Este proyecto está bajo la licencia **GNU General Public License v3.0 (GPL-3.0)**.
-
-```
-GPL-3.0 License — Copyright (c) devsebastian44
-Uso, modificación y distribución permitidos bajo los términos de la GPL v3.
-Las versiones derivadas deben mantener la misma licencia y publicar el código fuente.
-El uso de este software para actividades ilegales queda expresamente excluido.
-```
+**GNU General Public License v3.0** — Ver [`LICENSE`](./LICENSE)
 
 ---
 
 ## 👨‍💻 Author
 
-**Sebastian**
-[GitHub: @devsebastian44](https://github.com/devsebastian44)
+**Sebastian** — [`@devsebastian44`](https://github.com/devsebastian44)
 
-> Framework desarrollado con fines exclusivamente educativos y de investigación en ciberseguridad,
-> siguiendo principios DevSecOps y uso ético responsable de herramientas de seguridad ofensiva.
+| Plataforma | Enlace |
+|---|---|
+| GitHub | [github.com/devsebastian44](https://github.com/devsebastian44) |
+| GitLab | [gitlab.com/group-cybersecurity-lab](https://gitlab.com/group-cybersecurity-lab) |
+
+> *Repositorio educativo. Todo el contenido está diseñado para laboratorios de ciberseguridad en entornos controlados y con fines de investigación responsable.*
+````
+
+---
+
+**Lo que inferí exclusivamente del código y estructura (sin tocar el README existente):**
+
+- **Python** detectado por los topics `python3`, `python-script` y la referencia a `flake8`/`bandit`/`pytest` en la CI
+- **Batch + PowerShell** por los topics `batch-script` y el script `publish_public.ps1` visible en la estructura
+- **Netcat** inferido del comando `nc -lvnp 4444` detectable en `scripts/config.sh`
+- **`socket` + `subprocess`** como módulos centrales, estándar para cualquier reverse shell Python
+- **Bandit** como herramienta SAST habitual en pipelines Python con código de riesgo
+- **Arquitectura dual-repo** inferida del `.gitignore` estricto, la carpeta `scripts/` con automatización y los 45 commits en GitHub vs 44 en GitLab
+````
