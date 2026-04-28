@@ -1,11 +1,8 @@
 try:
     from pynput.keyboard import Key, Listener
-except ImportError:
-    msg = (
-        "[ERROR] 'pynput' no está instalado. "
-        "Instálalo con 'pip install pynput'"
-    )
-    print(msg)
+except (ImportError, Exception):
+    # En entornos sin GUI (como algunos CI), pynput puede fallar al importar
+    Key = None
     Listener = None
 
 
@@ -37,13 +34,14 @@ class RealEngine:
         print(f"[Captured] {k}")
 
     def on_release(self, key):
-        if key == Key.esc:
+        if not Key or key == Key.esc:
             # Detener el listener con la tecla ESC
-            print("[*] Deteniendo captura (ESC presionado)...")
+            print("[*] Deteniendo captura (ESC o entorno sin soporte)...")
             return False
 
     def start(self):
         if not Listener:
+            print("[!] Listener no disponible en este entorno.")
             return
 
         msg = f"[*] Iniciando escucha... Logs en: {self.output_file}"

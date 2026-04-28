@@ -7,8 +7,9 @@ from src.core.examples import EducationalKeylogger
 # Mocking Listener and Key from pynput
 @pytest.fixture
 def mock_pynput():
-    with patch('src.core.engine.Listener') as mock_listener, \
-         patch('src.core.engine.Key') as mock_key:
+    # Usamos create=True por si pynput no se pudo importar en el entorno de test
+    with patch('src.core.engine.Listener', create=True) as mock_listener, \
+         patch('src.core.engine.Key', create=True) as mock_key:
         yield mock_listener, mock_key
 
 
@@ -43,7 +44,7 @@ def test_engine_on_release_esc(mock_pynput):
     assert result is False
 
 
-@patch('src.core.engine.Listener')
+@patch('src.core.engine.Listener', create=True)
 def test_engine_start_calls_listener(mock_listener):
     """Verifica que engine.start() inicie el Listener."""
     engine = RealEngine()
