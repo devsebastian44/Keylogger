@@ -36,9 +36,16 @@ def main():
             engine = RealEngine(output=args.output)
             engine.start()
         except ImportError:
-            msg = "[ERROR] El motor operacional no está disponible en esta versión."
+            msg = (
+                "[ERROR] El motor operacional no está disponible "
+                "en esta versión."
+            )
             print(msg)
-            print("[INFO] Asegúrese de tener todos los componentes necesarios instalados.")
+            msg_info = (
+                "[INFO] Asegúrese de tener todos los componentes "
+                "necesarios."
+            )
+            print(msg_info)
     elif args.mode == 'test':
         msg = "[*] Ejecutando simulación de comportamiento..."
         print(msg)
