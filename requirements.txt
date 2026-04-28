@@ -1,0 +1,14 @@
+# Sentinel Framework Dependencies
+pynput>=1.7.6
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Platform Specific
+keyboard; sys_platform == 'win32'
+pywin32; sys_platform == 'win32'
+
+# Development & Quality
+pytest>=7.0.0
+flake8>=6.0.0
+bandit>=1.7.5
+pip-audit>=2.5.0
