@@ -31,7 +31,7 @@ graph TD
 Maneja la interfaz de línea de comandos (CLI) y la configuración inicial. Permite al usuario seleccionar el modo de operación.
 
 ### src/core/engine.py
-Contiene la implementación real utilizando librerías como `pynput` o `keyboard`. Este archivo está **ignorado** en el repositorio público de GitHub.
+Contiene la implementación real utilizando librerías como `pynput` o `keyboard`. Este archivo es parte del motor operacional del framework.
 
 ### src/core/examples.py
 Contiene una versión simplificada y educativa (pseudocódigo) de la lógica de captura para mostrar el concepto sin proporcionar una herramienta de ataque lista para usar.
