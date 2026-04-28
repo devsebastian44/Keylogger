@@ -19,7 +19,7 @@ def main():
         help="Select operation mode (default: dry-run)"
     )
     parser.add_argument(
-        '--output', type=str, help="Path to save logs (GitLab only)"
+        '--output', type=str, help="Path to save logs"
     )
 
     args = parser.parse_args()
@@ -29,17 +29,16 @@ def main():
         engine = EducationalKeylogger()
         engine.run()
     elif args.mode == 'active':
-        # En GitHub, esta sección solo mostraría un mensaje de advertencia.
-        # En GitLab, aquí se importaría la lógica real.
+        # Esta sección requiere el motor operacional completo.
         try:
             from core.engine import RealEngine
             print("[!] Iniciando MODO ACTIVO de laboratorio...")
             engine = RealEngine(output=args.output)
             engine.start()
         except ImportError:
-            msg = "[ERROR] El motor de laboratorio no está disponible."
+            msg = "[ERROR] El motor operacional no está disponible en esta versión."
             print(msg)
-            print("[INFO] Consulte el repositorio privado en GitLab.")
+            print("[INFO] Asegúrese de tener todos los componentes necesarios instalados.")
     elif args.mode == 'test':
         msg = "[*] Ejecutando simulación de comportamiento..."
         print(msg)
