@@ -1,5 +1,5 @@
 import argparse
-from core.examples import EducationalKeylogger
+from src.core.examples import EducationalKeylogger
 
 
 def banner():
@@ -31,7 +31,7 @@ def main():
     elif args.mode == 'active':
         # Esta sección requiere el motor operacional completo.
         try:
-            from core.engine import RealEngine
+            from src.core.engine import RealEngine
             print("[!] Iniciando MODO ACTIVO de laboratorio...")
             engine = RealEngine(output=args.output)
             engine.start()

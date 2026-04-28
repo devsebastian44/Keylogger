@@ -5,8 +5,6 @@
 ![GitHub Actions](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=flat&logo=github-actions&logoColor=white)
 ![SAST](https://img.shields.io/badge/SAST-Bandit-critical?style=flat&logo=python&logoColor=white)
 ![License](https://img.shields.io/badge/License-GPL--3.0-red?style=flat&logo=gnu&logoColor=white)
-![Platform](https://img.shields.io/badge/Plataforma-Windows%20%7C%20Linux-0078D6?style=flat&logo=windows&logoColor=white)
-
 
 > ⚠️ **AVISO LEGAL Y ÉTICO:** Este proyecto es de uso **estrictamente educativo y para
 > investigación en ciberseguridad defensiva**. Su ejecución en sistemas, dispositivos o
@@ -78,23 +76,22 @@ cp .env.example .env
 
 ## ▶️ Uso
 
+Para una correcta resolución de dependencias internas, se recomienda ejecutar el proyecto como un módulo desde la raíz:
+
 ### Modo Educativo (Dry Run)
 ```bash
-python src/main.py --mode dry-run
+python -m src.main --mode dry-run
 ```
-Simula el flujo completo sin capturar datos reales.
 
 ### Modo Simulación (Test)
 ```bash
-python src/main.py --mode test
+python -m src.main --mode test
 ```
-Ejecuta el framework con eventos inyectados de forma interna.
 
 ### Modo Laboratorio (Active)
 ```bash
-python src/main.py --mode active --output logs/sesion.log
+python -m src.main --mode active --output logs/sesion.log
 ```
-Ejecución operacional completa (requiere configuración SMTP).
 
 ---
 
@@ -104,7 +101,7 @@ Para asegurar la integridad del código, puedes ejecutar las siguientes herramie
 
 **Ejecutar Tests:**
 ```bash
-pytest
+python -m pytest
 ```
 
 **Análisis de Seguridad:**
